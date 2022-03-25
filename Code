@@ -1,0 +1,602 @@
+using System;
+using System.Collections.Generic;
+
+namespace LabAssignment1
+{
+    enum Campus { ISB = 1, LHR = 2 };
+    enum Session { FA = 1, SP = 2 };
+    enum Year { One = 2019, Two = 2020, Three = 2021, Four = 2022, Five = 2023 };
+    enum Degree { BSE = 1, BCS = 2, BIT = 3, BAI = 4 };
+
+
+    public class Student
+    {
+
+        private String name;
+        private String regNo;
+        private String email;
+        private String gender;
+
+        public Student(String name, String regNo, String email, String gender)
+        {
+            this.name = name;
+            this.regNo = regNo;
+            this.email = email;
+            this.gender = gender;
+        }
+
+        public string Name
+        {
+            get { return this.name; }
+            set { this.name = value; }
+        }
+
+        public string RegNo
+        {
+            get { return this.regNo; }
+            set { this.regNo = value; }
+        }
+
+        public string Email
+        {
+            get { return this.email; }
+            set { this.email = value; }
+        }
+
+        public string Gender
+        {
+            get { return this.gender; }
+            set { this.gender = value; }
+        }
+
+
+    }
+
+    public struct StudentCollection
+    {
+        public List<Student> stdlist;
+
+        public StudentCollection(int length)
+        {
+            if (length == -1)
+            {
+                this.stdlist = new List<Student>();
+            }
+            else { this.stdlist = new List<Student>(length); }
+
+        }
+
+        public void addStudent()
+        {
+            String name, campus, session, degree, gender;
+            int rollNo, year;
+            Console.WriteLine("*******Add Student*******");
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******");
+                    Console.Write("Enter Student Name\nEnter Here: ");
+                    name = Console.ReadLine();
+                    if (!String.IsNullOrEmpty(name))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Data Provided\n Please Enter Correct Value");
+                }
+            }
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******");
+                    Console.Write("Choose Student Campus \n1 for " + Campus.ISB + "\n2 for " + Campus.LHR+"\nEnter Here:" );
+                    int option = int.Parse(Console.ReadLine());
+                    if (option > 0 && option <= 2)
+                    {
+                        Campus choose3 = (Campus)option;
+                        campus = choose3.ToString();
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Data Provided\n Please Enter Correct Value");
+                }
+            }
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******");
+                    Console.Write("Choose Student Session \n1 for " + Session.FA + "\n2 for " + Session.SP + "\nEnter Here: ");
+                    int option = int.Parse(Console.ReadLine());
+                    if (option > 0 && option < 3)
+                    {
+                        Session choose3 = (Session)option;
+                        session = choose3.ToString();
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Data Provided\n Please Enter Correct Value");
+                }
+            }
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******");
+                    Console.Write("Choose Student Year \n" + (int)Year.One + "\n" + (int)Year.Two + "\n" + (int)Year.Three + "\n" + (int)Year.Four + "\n" + (int)Year.Five + "\nEnter Here: ");
+                    year = int.Parse(Console.ReadLine());
+                    if (year > 2018 && year < 2024)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Data Provided\n Please Enter Correct Value");
+                }
+            }
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******");
+                    Console.Write("Choose Student Program \n1 for " + Degree.BSE + "\n2 for " + Degree.BCS + "\n3 for " + Degree.BIT + "\n4 for " + Degree.BAI + "\nEnter Here: ");
+                    int option = int.Parse(Console.ReadLine());
+                    if (option > 0 && option < 4)
+                    {
+                        Degree choose3 = (Degree)option;
+                        degree = choose3.ToString();
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Data Provided\n Please Enter Correct Value");
+                }
+            }
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******");
+                    Console.Write("Enter Student Roll number\nEnter Here: ");
+                    rollNo = int.Parse(Console.ReadLine());
+                    if (rollNo > 0)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Data Provided\n Please Enter Correct Value");
+                }
+            }
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******");
+                    Console.Write("Enter Student Gender (Male/Female)\nEnter Here: ");
+                    gender = Console.ReadLine();
+
+                    if (gender.Contains("Male") || gender.Contains("male") || gender.Contains("Female") || gender.Contains("female"))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Data Provided\n Please Enter Correct Value");
+                }
+            }
+
+            String regNo = "CUI/" + session + (year % 1000) + "-" + degree + "-" + rollNo.ToString("D3") + "/" + campus;
+
+            String email = session + (year % 1000) + "-" + degree + "-" + rollNo.ToString("D3") + "@isbstudent.comsats.edu.pk";
+
+            Student studentObj = new Student(name, regNo, email, gender);
+
+            stdlist.Add(studentObj);
+
+        }
+
+        public void updateStudent()
+        {
+
+            Console.WriteLine("*******Update Student*******");
+
+            String regNo, name, gender;
+            int index = -1;
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******");
+                    Console.Write("Enter Student Registration Number (CUI/XXXX-XXX-XXX/XXX)\nEnter Here: ");
+                    regNo = Console.ReadLine();
+                    if (!String.IsNullOrEmpty(regNo))
+                    {
+                        index = searchStudent(regNo);
+                        if (index != -1)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.Write("Student Not Found Or ");
+                            throw new KeyNotFoundException();
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Data Provided\n Please Enter Correct Value");
+                }
+            }
+
+            Console.WriteLine("*******Existing Record*******");
+            Console.WriteLine(stdlist[index].Name + "\n" + stdlist[index].RegNo + "\n" + stdlist[index].Email + "\n" + stdlist[index].Gender);
+            Console.WriteLine("*******Update Record*******");
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******");
+                    Console.Write("Enter New Name\nEnter Here: ");
+                    name = Console.ReadLine();
+                    if (!String.IsNullOrEmpty(name))
+                    {
+                        Console.WriteLine("Name Updated Successfully");
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Data Provided\n Please Enter Correct Value");
+                }
+            }
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******");
+                    Console.Write("Enter New Registration Number (CUI/XXXX-XXX-XXX/XXX)\nEnter Here: ");
+                    regNo = Console.ReadLine();
+                    if (verifyRegNoFormat(regNo))
+                    {
+                        Console.WriteLine("Registration Updated Successfully\nYour Email is updated accordingly");
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Data Provided\n Please Enter Correct Value");
+                }
+            }
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******");
+                    Console.Write("Enter New Gender (Male/Female)\nEnter Here: ");
+                    gender = Console.ReadLine();
+
+                    if (gender.Contains("Male") || gender.Contains("male") || gender.Contains("Female") || gender.Contains("female"))
+                    {
+                        Console.WriteLine("Gender Updated Successfully");
+                        break;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Data Provided\n Please Enter Correct Value");
+                }
+            }
+
+
+            String subReg = regNo.Substring(5, 12);
+            String email = subReg + "@isbstudent.comsats.edu.pk";
+
+            stdlist[index].Name = name;
+            stdlist[index].RegNo = regNo;
+            stdlist[index].Email = email;
+            stdlist[index].Gender = gender;
+
+        }
+
+        public void deleteStudent()
+        {
+            Console.WriteLine("*******Delete Student*******");
+
+            String regNo;
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******");
+                    Console.Write("Enter Student Registration Number (CUI/XXXX-XXX-XXX/XXX)\nEnter Here: ");
+                    regNo = Console.ReadLine();
+                    if (!String.IsNullOrEmpty(regNo))
+                    {
+                        int index = searchStudent(regNo);
+                        if (index != -1)
+                        {
+                            stdlist.RemoveAt(index);
+                            Console.WriteLine("Student Deleted Successfully");
+                            break;
+                        }
+                        else
+                        {
+                            Console.Write("Student Not Found Or ");
+                            throw new KeyNotFoundException();
+                        }
+
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Data Provided\n Please Enter Correct Value");
+                }
+            }
+
+        }
+
+        public int searchStudent(String regNo)
+        {
+            for (int i = 0; i < stdlist.Count; i++)
+            {
+                if (stdlist[i].RegNo.Equals(regNo))
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        public void displayStudentDetails()
+        {
+            if (stdlist.Count != 0)
+            {
+                for (int i = 0; i < stdlist.Count; i++)
+                {
+                    Console.WriteLine("*******");
+                    Console.WriteLine(stdlist[i].Name + "\n" + stdlist[i].RegNo + "\n" + stdlist[i].Email + "\n" + stdlist[i].Gender);
+                }
+            }
+            else
+            {
+                Console.WriteLine("*******\nNo Record Found");
+            }
+        }
+        private bool verifyRegNoFormat(String newRegNo)
+        {
+            if (newRegNo.Length == 20)
+            {
+                newRegNo.Trim();
+                String subStart = newRegNo.Substring(0, 4);
+                Console.WriteLine("Start: " + subStart);
+                Console.WriteLine("Reg: " + newRegNo);
+                String subSession = newRegNo.Substring(4, 2);
+                Console.WriteLine("Session: " + subSession);
+                String subYear = newRegNo.Substring(6, 3);
+                Console.WriteLine("Year: " + subYear);
+                String subProgram = newRegNo.Substring(9, 4);
+                Console.WriteLine("Program: " + subProgram);
+                String subRollNo = newRegNo.Substring(13, 3);
+                Console.WriteLine("Roll: " + subRollNo);
+                String subCampus = newRegNo.Substring(16, 4);
+                Console.WriteLine("Campus: " + subCampus);
+
+                if (subStart.Equals("CUI/"))
+                {
+                    if (subSession.Equals(Session.FA + "") || subSession.Equals(Session.SP + ""))
+                    {
+                        if (subYear.Equals((((int)Year.One) % 1000) + "-") || subYear.Equals((((int)Year.Two) % 1000) + "-")
+                            || subYear.Equals((((int)Year.Three) % 1000) + "-") || subYear.Equals((((int)Year.Four) % 1000) + "-")
+                            || subYear.Equals((((int)Year.Five) % 1000) + "-"))
+                        {
+                            if (subProgram.Equals(Degree.BSE + "-") || subProgram.Equals(Degree.BCS + "-")
+                                || subProgram.Equals(Degree.BIT + "-") || subProgram.Equals(Degree.BAI + "-"))
+                            {
+                                if (int.Parse(subRollNo) >= 001)
+                                {
+                                    if (subCampus.Equals("/" + Campus.ISB) ||  subCampus.Equals("/" + Campus.LHR) )
+                                    {
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Campus is Wrong");
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Roll Number is Wrong");
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Program is Wrong");
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Year is Wrong");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Session is Wrong");
+                        return false;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Universirty is Wrong");
+                    return false;
+                }
+            }
+            else
+            {
+                Console.WriteLine("RegNo Format is Incorrect");
+                return false;
+            }
+        }
+    }
+
+    internal class Assignment
+    {
+        static void Main(string[] args)
+        {
+            StudentCollection myStdData = new StudentCollection(-1);
+            int noStd = -1;
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("*******Student Portal*******");
+                    Console.Write("1 For Fix Number of Students (By Default it is Dynamic)\n2 For Add Student Records" +
+                        "\n3 For Display Student Records\n4 For Updated Student Record\n5 For Delete Student Record\n6 For Exit\nEnter Here: ");
+                    int option = int.Parse(Console.ReadLine());
+                    if (option >= 1 && option <= 7)
+                    {
+                        if (option == 1)
+                        {
+
+                            while (true)
+                            {
+                                try
+                                {
+                                    Console.WriteLine("Enter Total Numbers of Student");
+                                    noStd = int.Parse(Console.ReadLine());
+                                    Console.WriteLine("Setting Changed");
+                                    break;
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine("Wrong Data Entered \nPlease Enter Again");
+                                }
+                            }
+
+                            myStdData = new StudentCollection(noStd);
+
+                        }
+                        else if (option == 2)
+                        {
+                            if (noStd == -1)
+                            {
+                                myStdData.addStudent();
+                            }
+                            else if (myStdData.stdlist.Count < noStd)
+                            {
+                                myStdData.addStudent();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Maxinum Length Reached");
+                            }
+
+                        }
+                        else if (option == 3)
+                        {
+                            myStdData.displayStudentDetails();
+                        }
+                        else if (option == 4)
+                        {
+                            myStdData.updateStudent();
+                        }
+                        else if (option == 5)
+                        {
+                            myStdData.deleteStudent();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Bye Thanks For Running The Code");
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Wrong Option Selected!\nPlease Select Again");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Wrong Option Selected!\nPlease Select Again");
+                }
+            }
+        }
+
+    }
+}
